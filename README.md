@@ -1,3 +1,63 @@
+# Restaurant Management System Database – Overview
+
+This project is a **Restaurant Management System Database** design that covers essential operations such as reservations, orders, employees, and menu management. It ensures data integrity through structured relationships and constraints.
+
+## Scope
+
+The database supports core functionalities to manage restaurant operations efficiently, including:
+
+- **Tables**: Information about dining tables.
+- **Employees**: Staff details and roles.
+- **Shifts**: Employee work schedules.
+- **Reservations**: Customer reservation tracking.
+- **Menu**: Menu items with pricing and availability.
+- **Orders**: Customer order records.
+
+### Out of Scope
+
+- Financial reports
+- Supplier inventory management
+- Customer loyalty programs
+
+## Functional Requirements
+
+- **Manage Tables**: Add, update, and remove tables.
+- **Employee Management**: Add/update/remove employee details and assign shifts.
+- **Handle Reservations**: Create, update, cancel, and confirm reservations.
+- **Order Management**: Track customer orders and calculate totals.
+- **Menu Management**: Add, update, and remove menu items.
+- **Shift Scheduling**: Assign employees to shifts.
+- **Real-Time Table Availability**: Check table availability.
+- **Sales and Performance Tracking**: Generate sales and employee reports.
+
+##
+
+## Optimizations
+
+### Indexes
+
+- `check_table_number`: Speeds up table availability checks.
+- `check_reservation_datetime`: Optimizes reservation searches.
+- `filter_employee_role`: Improves role-based filtering.
+- `check_shift_date & check_order_date`: Enhances scheduling and sales reports.
+
+### Views
+
+- **AvailableTables**: Provides real-time table availability.
+- **DailySales**: Summarizes daily revenue.
+
+## Limitations
+
+- Assumes linear relationships (scalability concerns for large datasets).
+- No flexible seating arrangements.
+- No support for custom menu modifications.
+- Employees cannot hold multiple roles in the same shift.
+
+##
+
+**Author**: Nicola Gigante
+
+
 ![Entity-Relationsip Diagram](ER_Diagram.jpeg)
 
 # 📘 Data Dictionary – Entity
