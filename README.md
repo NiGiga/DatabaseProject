@@ -37,6 +37,8 @@ The database supports core functionalities to manage restaurant operations effic
 
 ![Entity-Relationsip Diagram](ER_Diagram.jpeg)
 
+---
+
 # 📘 Data Dictionary – Entity
 
 ---
