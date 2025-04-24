@@ -30,7 +30,9 @@ The database supports core functionalities to manage restaurant operations effic
 - **Real-Time Table Availability**: Check table availability.
 - **Sales and Performance Tracking**: Generate sales and employee reports.
 
+---
 
+## Entity-Relationsip Diagram
 
 
 ![Entity-Relationsip Diagram](ER_Diagram.jpeg)
