@@ -1,3 +1,5 @@
+![Entity-Relationsip Diagram](ER_Diagram.jpeg)
+
 # 📘 Data Dictionary – Entity
 
 ---
