@@ -30,32 +30,7 @@ The database supports core functionalities to manage restaurant operations effic
 - **Real-Time Table Availability**: Check table availability.
 - **Sales and Performance Tracking**: Generate sales and employee reports.
 
-##
 
-## Optimizations
-
-### Indexes
-
-- `check_table_number`: Speeds up table availability checks.
-- `check_reservation_datetime`: Optimizes reservation searches.
-- `filter_employee_role`: Improves role-based filtering.
-- `check_shift_date & check_order_date`: Enhances scheduling and sales reports.
-
-### Views
-
-- **AvailableTables**: Provides real-time table availability.
-- **DailySales**: Summarizes daily revenue.
-
-## Limitations
-
-- Assumes linear relationships (scalability concerns for large datasets).
-- No flexible seating arrangements.
-- No support for custom menu modifications.
-- Employees cannot hold multiple roles in the same shift.
-
-##
-
-**Author**: Nicola Gigante
 
 
 ![Entity-Relationsip Diagram](ER_Diagram.jpeg)
@@ -202,3 +177,30 @@ The database supports core functionalities to manage restaurant operations effic
 
 ---
 
+##
+
+## Optimizations
+
+### Indexes
+
+- `check_table_number`: Speeds up table availability checks.
+- `check_reservation_datetime`: Optimizes reservation searches.
+- `filter_employee_role`: Improves role-based filtering.
+- `check_shift_date & check_order_date`: Enhances scheduling and sales reports.
+
+### Views
+
+- **AvailableTables**: Provides real-time table availability.
+- **DailySales**: Summarizes daily revenue.
+- **EmployeeShift**: Provides employees assignments
+
+## Limitations
+
+- Assumes linear relationships (scalability concerns for large datasets).
+- No flexible seating arrangements.
+- No support for custom menu modifications.
+- Employees cannot hold multiple roles in the same shift.
+
+##
+
+**Author**: Nicola Gigante
