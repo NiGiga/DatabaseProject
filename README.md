@@ -32,12 +32,16 @@ The database supports core functionalities to manage restaurant operations effic
 
 ---
 
+
+
 ## Entity-Relationsip Diagram
 
 
 ![Entity-Relationsip Diagram](ER_Diagram.jpeg)
 
 ---
+
+
 
 # 📘 Data Dictionary – Entity
 
@@ -51,7 +55,7 @@ The database supports core functionalities to manage restaurant operations effic
 | Location  | TEXT      | NULLABLE        | Table location (e.g., patio)       |
 | Status    | TEXT      | DEFAULT 'free'  | Table status (e.g., free, occupied)|
 
----
+
 
 ## 👤 Employee (waiter, chef, manager)
 | Attribute   | Data Type | Constraints     | Description                          |
@@ -62,7 +66,7 @@ The database supports core functionalities to manage restaurant operations effic
 | Phone       | TEXT      | NULLABLE        | Contact phone number                 |
 | Email       | TEXT      | UNIQUE          | Company email                        |
 
----
+
 
 ## 🕑 Shift
 | Attribute | Data Type | Constraints  | Description               |
@@ -72,7 +76,7 @@ The database supports core functionalities to manage restaurant operations effic
 | EndTime   | TIME      | NOT NULL     | End time of the shift     |
 | Date      | DATE      | NOT NULL     | Date of the shift         |
 
----
+
 
 ## 🔁 EmployeeShift
 | Attribute   | Data Type | Constraints                        | Description                                |
@@ -82,7 +86,7 @@ The database supports core functionalities to manage restaurant operations effic
 | Role        | TEXT      | NULLABLE                           | Optional specific role in the shift        |
 | **PK**      |           | (EmployeeID, ShiftID)              | Composite primary key                      |
 
----
+
 
 ## 📅 Reservation
 | Attribute        | Data Type | Constraints                    | Description                                  |
@@ -96,7 +100,7 @@ The database supports core functionalities to manage restaurant operations effic
 | TableID          | INTEGER   | FK → Table(TableID)             | Reserved table                               |
 | Status           | TEXT      | DEFAULT 'confirmed'             | Reservation status (e.g., confirmed, canceled)|
 
----
+
 
 ## 🧾 Order
 | Attribute   | Data Type | Constraints                     | Description                                |
@@ -107,7 +111,7 @@ The database supports core functionalities to manage restaurant operations effic
 | OrderTime   | DATETIME  | NOT NULL                        | Date and time of the order                 |
 | TotalAmount | DECIMAL   | COMPUTED or NULL                | Total price (can be computed from items)   |
 
----
+
 
 ## 🍽️ MenuItem
 | Attribute   | Data Type | Constraints     | Description                            |
@@ -118,7 +122,7 @@ The database supports core functionalities to manage restaurant operations effic
 | Price       | DECIMAL   | NOT NULL        | Price                                  |
 | Availability| BOOLEAN   | DEFAULT TRUE    | Whether the item is available          |
 
----
+
 
 ## 🍴 OrderItem
 | Attribute   | Data Type | Constraints                     | Description                              |
@@ -129,6 +133,8 @@ The database supports core functionalities to manage restaurant operations effic
 | **PK**      |           | (OrderID, ItemID)               | Composite primary key                    |
 
 ---
+
+
 
 # 🔗 Data Dictionary – Relationships
 
@@ -141,7 +147,7 @@ The database supports core functionalities to manage restaurant operations effic
 | Description    | A table can have multiple reservations, but each reservation is for one table |
 | Implementation | `Reservation.TableID` is a foreign key referencing `Table.TableID`    |
 
----
+
 
 ## ReceivesOrder
 | Property       | Value                                                                 |
@@ -150,7 +156,7 @@ The database supports core functionalities to manage restaurant operations effic
 | Description    | A table can receive multiple orders, each order is linked to one table|
 | Implementation | `Order.TableID` is a foreign key referencing `Table.TableID`          |
 
----
+
 
 ## TakesOrder
 | Property       | Value                                                                 |
@@ -159,7 +165,7 @@ The database supports core functionalities to manage restaurant operations effic
 | Description    | An employee (e.g., a waiter) can take many orders, each order is taken by one employee |
 | Implementation | `Order.EmployeeID` is a foreign key referencing `Employee.EmployeeID` |
 
----
+
 
 ## AssignedTo
 | Property       | Value                                                                |
@@ -170,7 +176,6 @@ The database supports core functionalities to manage restaurant operations effic
 | Join Table     | `EmployeeShift` (EmployeeID, ShiftID, Role, etc.)                    |
 
 
----
 
 ## Contains
 | Property       | Value                                                                 |
