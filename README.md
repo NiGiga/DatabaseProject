@@ -40,151 +40,80 @@ The database supports core functionalities to manage restaurant operations effic
 ![Entity-Relationsip Diagram](ER_RMDB.jpeg)
 
 ---
+# 🍽️ Restaurant Management System – ER Model Breakdown
 
+## 📦 Entity Tables
 
-
-# 📘 Data Dictionary – Entity
-
----
-
-## 📦 Table
-| Attribute | Data Type | Constraints     | Description                        |
-|-----------|-----------|-----------------|------------------------------------|
-| TableID   | INTEGER   | PK, NOT NULL    | Unique identifier for the table    |
-| Seats     | INTEGER   | NOT NULL        | Number of available seats          |
-| Location  | TEXT      | NULLABLE        | Table location (e.g., patio)       |
-| Status    | TEXT      | DEFAULT 'free'  | Table status (e.g., free, occupied)|
-
-
-
-## 👤 Employee (waiter, chef, manager)
-| Attribute   | Data Type | Constraints     | Description                          |
-|-------------|-----------|-----------------|--------------------------------------|
-| EmployeeID  | INTEGER   | PK, NOT NULL    | Unique ID for the employee           |
-| FirstName   | TEXT      | NOT NULL        | First name                           |
-| LastName    | TEXT      | NOT NULL        | Last name                            |
-| Phone       | TEXT      | NULLABLE        | Contact phone number                 |
-| Email       | TEXT      | UNIQUE          | Company email                        |
-
-
-
-## 🕑 Shift
-| Attribute | Data Type | Constraints  | Description               |
-|-----------|-----------|--------------|---------------------------|
-| ShiftID   | INTEGER   | PK, NOT NULL | Unique shift identifier   |
-| StartTime | TIME      | NOT NULL     | Start time of the shift   |
-| EndTime   | TIME      | NOT NULL     | End time of the shift     |
-| Date      | DATE      | NOT NULL     | Date of the shift         |
-
-
-
-## 🔁 EmployeeShift
-| Attribute   | Data Type | Constraints                        | Description                                |
-|-------------|-----------|-------------------------------------|--------------------------------------------|
-| EmployeeID  | INTEGER   | FK → Employee(EmployeeID)          | Assigned employee                          |
-| ShiftID     | INTEGER   | FK → Shift(ShiftID)                | Associated shift                           |
-| Role        | TEXT      | NULLABLE                           | Optional specific role in the shift        |
-| **PK**      |           | (EmployeeID, ShiftID)              | Composite primary key                      |
-
-
-
-## 📅 Reservation
-| Attribute        | Data Type | Constraints                    | Description                                  |
-|------------------|-----------|----------------------------------|----------------------------------------------|
-| ReservationID    | INTEGER   | PK, NOT NULL                    | Unique reservation ID                        |
-| CustomerName     | TEXT      | NOT NULL                        | Name of the customer                         |
-| CustomerPhone    | TEXT      | NOT NULL                        | Customer's phone number                      |
-| Date             | DATE      | NOT NULL                        | Reservation date                             |
-| Time             | TIME      | NOT NULL                        | Reservation time                             |
-| NumberOfGuests   | INTEGER   | NOT NULL                        | Number of guests                             |
-| TableID          | INTEGER   | FK → Table(TableID)             | Reserved table                               |
-| Status           | TEXT      | DEFAULT 'confirmed'             | Reservation status (e.g., confirmed, canceled)|
-
-
-
-## 🧾 Order
-| Attribute   | Data Type | Constraints                     | Description                                |
-|-------------|-----------|----------------------------------|--------------------------------------------|
-| OrderID     | INTEGER   | PK, NOT NULL                    | Unique order ID                            |
-| TableID     | INTEGER   | FK → Table(TableID)             | Table where the order was made             |
-| EmployeeID  | INTEGER   | FK → Employee(EmployeeID)       | Waiter who took the order                  |
-| OrderTime   | DATETIME  | NOT NULL                        | Date and time of the order                 |
-| TotalAmount | DECIMAL   | COMPUTED or NULL                | Total price (can be computed from items)   |
-
-
-
-## 🍽️ MenuItem
-| Attribute   | Data Type | Constraints     | Description                            |
-|-------------|-----------|-----------------|----------------------------------------|
-| ItemID      | INTEGER   | PK, NOT NULL    | Unique menu item ID                    |
-| Name        | TEXT      | NOT NULL        | Name of the item                       |
-| Description | TEXT      | NULLABLE        | Item description                       |
-| Price       | DECIMAL   | NOT NULL        | Price                                  |
-| Availability| BOOLEAN   | DEFAULT TRUE    | Whether the item is available          |
-
-
-
-## 🍴 OrderItem
-| Attribute   | Data Type | Constraints                     | Description                              |
-|-------------|-----------|----------------------------------|------------------------------------------|
-| OrderID     | INTEGER   | FK → Order(OrderID)             | ID of the related order                  |
-| ItemID      | INTEGER   | FK → MenuItem(ItemID)           | ID of the ordered item                   |
-| Quantity    | INTEGER   | NOT NULL                        | Quantity of the item ordered             |
-| **PK**      |           | (OrderID, ItemID)               | Composite primary key                    |
+| Entity       | Attributes                                                                 |
+|--------------|----------------------------------------------------------------------------|
+| **Table**        | TableID (PK), Seats, Location, Status (Available / Occupied)               |
+| **Employee**     | EmployeeID (PK), FirstName, LastName, Phone, Email, Role                  |
+| **Shift**        | ShiftID (PK), StartTime, EndTime, Date                                    |
+| **Reservation**  | ReservationID (PK), CustomerName, CustomerPhone, Email, Date, Time, NumberOfGuests, Status (Confirmed / Cancelled) |
+| **Order**        | OrderID (PK), TableID (FK), EmployeeID (FK), OrderTime, TotalAmount       |
+| **MenuItem**     | ItemID (PK), Name, Description, Price, Availability (Yes / No)            |
+| **Bill**         | BillID (PK), OrderID (FK), BillTime, TotalAmount                          |
 
 ---
 
+## 🔗 Relationship Tables
 
+| Relationship           | Attributes (if any)                         | Description                                                                |
+|------------------------|--------------------------------------------|----------------------------------------------------------------------------|
+| **HasReservation**     | ReservationID (FK), TableID (FK)           | A table can have multiple reservations                                     |
+| **ReceivesOrder**      | OrderID (FK), TableID (FK)                 | A table can receive multiple orders                                        |
+| **TakesOrder**         | OrderID (FK), EmployeeID (FK)              | An employee takes the order                                                |
+| **Contains**           | OrderID (FK), ItemID (FK), Quantity        | An order can contain multiple items                                        |
+| **AssignedToKitchen**  | EmployeeID (FK), ShiftID (FK)              | Kitchen staff assigned to kitchen shifts                                   |
+| **AssignedToRestaurant**| EmployeeID (FK), ShiftID (FK)             | Room staff assigned to restaurant shifts                                   |
+| **MakesShifts**        | ManagerID (FK), ShiftID (FK)               | Managers are responsible for shift creation                                |
+| **Cashing**            | BillID (FK), EmployeeID (FK)               | An employee (e.g., cashier) handles the bill                               |
 
-# 🔗 Data Dictionary – Relationships
+---
+
+## ⚙️ Action Types & Frequency Estimates
+
+| Action                     | Type        | Frequency Estimate       |
+|----------------------------|-------------|---------------------------|
+| Make a reservation         | Interactive | 50–100/day                |
+| Assign employee to shift   | Batch       | 2–3/day (pre-shift setup) |
+| Place an order             | Interactive | 200–300/day               |
+| Generate bill              | Interactive | ~200/day                  |
+| Add/update menu item       | Batch       | ~10/week                  |
+| Assign kitchen staff       | Batch       | 1–2/day                   |
+| Cash out an order          | Interactive | ~200/day                  |
+| Cancel reservation         | Interactive | ~10/day                   |
+| Create shift (manager)     | Interactive | 1–2/day                   |
 
 ---
 
-## HasReservation
-| Property       | Value                                                                 |
-|----------------|-----------------------------------------------------------------------|
-| Entities       | Table (1,N) — Reservation (1,1)                                       |
-| Description    | A table can have multiple reservations, but each reservation is for one table |
-| Implementation | `Reservation.TableID` is a foreign key referencing `Table.TableID`    |
+## 🧱 Logical Schema (Relational Structure)
+
+- **Table**(TableID, –, Seats, Location, Status)
+- **Employee**(EmployeeID, –, FirstName, LastName, Phone, Email, Role)
+- **Shift**(ShiftID, –, StartTime, EndTime, Date)
+- **Reservation**(ReservationID, TableID (→ Table), –, CustomerName, CustomerPhone, Email, Date, Time, NumberOfGuests, Status)
+- **Order**(OrderID, TableID (→ Table), EmployeeID (→ Employee), OrderTime, TotalAmount)
+- **MenuItem**(ItemID, –, Name, Description, Price, Availability)
+- **Bill**(BillID, OrderID (→ Order), –, BillTime, TotalAmount)
+
+### Relationships
+
+- **HasReservation**(ReservationID (→ Reservation), TableID (→ Table), –)
+- **ReceivesOrder**(OrderID (→ Order), TableID (→ Table), –)
+- **TakesOrder**(OrderID (→ Order), EmployeeID (→ Employee), –)
+- **Contains**(OrderID, ItemID, OrderID (→ Order), ItemID (→ MenuItem), Quantity)
+- **AssignedToKitchen**(EmployeeID, ShiftID, EmployeeID (→ Employee), ShiftID (→ Shift), –)
+- **AssignedToRestaurant**(EmployeeID, ShiftID, EmployeeID (→ Employee), ShiftID (→ Shift), –)
+- **MakesShifts**(ManagerID (→ Employee), ShiftID (→ Shift), –)
+- **Cashing**(BillID (→ Bill), EmployeeID (→ Employee), –)
 
 
 
-## ReceivesOrder
-| Property       | Value                                                                 |
-|----------------|-----------------------------------------------------------------------|
-| Entities       | Table (0,N) — Order (1,1)                                             |
-| Description    | A table can receive multiple orders, each order is linked to one table|
-| Implementation | `Order.TableID` is a foreign key referencing `Table.TableID`          |
 
 
 
-## TakesOrder
-| Property       | Value                                                                 |
-|----------------|-----------------------------------------------------------------------|
-| Entities       | Employee (1,1) — Order (0,N)                                          |
-| Description    | An employee (e.g., a waiter) can take many orders, each order is taken by one employee |
-| Implementation | `Order.EmployeeID` is a foreign key referencing `Employee.EmployeeID` |
 
-
-
-## AssignedTo
-| Property       | Value                                                                |
-|----------------|----------------------------------------------------------------------|
-| Entities       | Employee (1,N) — Shift (1,N)                                         |
-| Description    | Employees can be assigned to multiple shifts, and each shift can include multiple employees |
-| Implementation | Implemented via the `EmployeeShift` join table                       |
-| Join Table     | `EmployeeShift` (EmployeeID, ShiftID, Role, etc.)                    |
-
-
-
-## Contains
-| Property       | Value                                                                 |
-|----------------|-----------------------------------------------------------------------|
-| Entities       | Order (1,N) — MenuItem (1,N)                                          |
-| Description    | An order can contain multiple menu items, and each menu item can appear in many orders |
-| Implementation | Implemented via the `OrderItem` join table with FK to both `Order` and `MenuItem` |
-
----
 
 #
 ## Optimizations
