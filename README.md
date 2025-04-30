@@ -37,7 +37,7 @@ The database supports core functionalities to manage restaurant operations effic
 ## Entity-Relationsip Diagram
 
 
-![Entity-Relationsip Diagram](ER_Diagram.jpeg)
+![Entity-Relationsip Diagram](ER_RMDB.jpeg)
 
 ---
 
