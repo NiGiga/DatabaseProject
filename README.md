@@ -12,10 +12,11 @@ The database supports core functionalities to manage restaurant operations effic
 - **Reservations**: Customer reservation tracking.
 - **Menu**: Menu items with pricing and availability.
 - **Orders**: Customer order records.
+- **Cash Register**: Keep record of bills.
 
 ### Out of Scope
 
-- Financial reports
+- Financial reports(in-out)
 - Supplier inventory management
 - Customer loyalty programs
 
@@ -52,7 +53,7 @@ The database supports core functionalities to manage restaurant operations effic
 | **Reservation**  | ReservationID (PK), CustomerName, CustomerPhone, Email, Date, Time, NumberOfGuests, Status (Confirmed / Cancelled) |
 | **Order**        | OrderID (PK), TableID (FK), EmployeeID (FK), OrderTime, TotalAmount       |
 | **MenuItem**     | ItemID (PK), Name, Description, Price, Availability (Yes / No)            |
-| **Bill**         | BillID (PK), OrderID (FK), BillTime, TotalAmount                          |
+| **Cash Register**         | BillID (PK), OrderID (FK), BillTime, TotalAmount                 |
 
 ---
 
@@ -95,7 +96,7 @@ The database supports core functionalities to manage restaurant operations effic
 - **Reservation**(ReservationID, TableID (→ Table), –, CustomerName, CustomerPhone, Email, Date, Time, NumberOfGuests, Status)
 - **Order**(OrderID, TableID (→ Table), EmployeeID (→ Employee), OrderTime, TotalAmount)
 - **MenuItem**(ItemID, –, Name, Description, Price, Availability)
-- **Bill**(BillID, OrderID (→ Order), –, BillTime, TotalAmount)
+- **Cash Register**(BillID, OrderID (→ Order), –, BillTime, TotalAmount)
 
 ### Relationships
 
@@ -106,12 +107,7 @@ The database supports core functionalities to manage restaurant operations effic
 - **AssignedToKitchen**(EmployeeID, ShiftID, EmployeeID (→ Employee), ShiftID (→ Shift), –)
 - **AssignedToRestaurant**(EmployeeID, ShiftID, EmployeeID (→ Employee), ShiftID (→ Shift), –)
 - **MakesShifts**(ManagerID (→ Employee), ShiftID (→ Shift), –)
-- **Cashing**(BillID (→ Bill), EmployeeID (→ Employee), –)
-
-
-
-
-
+- **Cashing**(BillID (→ Cash Register), EmployeeID (→ Employee), –)
 
 
 
