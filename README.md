@@ -187,7 +187,51 @@ The database supports core functionalities to manage restaurant operations effic
 ---
 
 ##
+## Redundancy Analysis
 
+### Identified Redundancies
+
+1. **Manager, Waiter, and Host IDs in Reservations**
+   - The `Reservations` table includes separate foreign keys for `manager_id`, `waiter_id`, and `host_id`, even though these roles are already part of the `Employees` table and may be inferable from shifts or context.
+
+2. **Cook ID in OrderDetails**
+   - Each `OrderDetails` row includes a `cook_id`, which may be deducible based on shift assignments or operational rules.
+
+3. **manager_approval in Orders**
+   - The presence of `manager_approval` as a boolean could be inferred from actions logged or through a relational approval table.
+
+4. **Table location and capacity**
+   - If table arrangement changes frequently, `location` and `capacity` might be better managed in a dedicated `TableLayouts` table rather than stored statically in the `Tables` table.
+
+---
+
+### Impact of Redundancy
+
+| Redundant Field          | Pros (Keep)                                               | Cons (Remove)                                             |
+|--------------------------|-----------------------------------------------------------|-----------------------------------------------------------|
+| `manager_id`, `waiter_id`, `host_id` in Reservations | Quick access to involved employees per reservation         | Redundant if staff assignments are already tracked via shifts |
+| `cook_id` in OrderDetails  | Useful for performance tracking and accountability       | Could be inferred from kitchen schedules                  |
+| `manager_approval` in Orders | Efficient Boolean check for UI/workflows                  | May violate normalization; could be a separate approval table |
+| `location` and `capacity` in Tables | Fast lookup for real-time availability checks             | Not flexible to layout changes                            |
+
+---
+
+### Recommendation
+
+- **Retain Partial Redundancy Where Performance Matters**:
+  - In high-read environments (like reservations and orders), it's often worth accepting *controlled redundancy* (e.g. storing `waiter_id`, `cook_id`) to reduce complex joins and ensure performance.
+
+- **Eliminate Redundancy Where Maintenance Becomes Risky**:
+  - Fields like `manager_approval` could be normalized into a separate table (`OrderApprovals`) to allow for more extensible auditing and historical tracking.
+  - Dynamic attributes (e.g. `location`) should be abstracted if the restaurant layout is updated regularly.
+
+---
+
+### Conclusion
+
+The database currently includes some **intentional redundancies** to optimize **query performance** and **simplify application logic**, especially for frequent operations like reservation handling and order processing. However, to reduce the number of data access operations and ensure long-term maintainability, **normalizing infrequently used or change-sensitive fields** is recommended.
+
+#
 ## Optimizations
 
 ### Indexes
