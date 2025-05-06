@@ -126,7 +126,7 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 ## Logic Schema
 
 
-![Entity-Relationsip Diagram](dbLogic.jpg)
+![Logic Schema](dbLogic.jpg)
 
 ---
 
