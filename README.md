@@ -59,19 +59,18 @@ The database supports core functionalities to manage restaurant operations effic
 
 ## 🔗 Relationship Tables
 
-| Relationship           | Composition                         | Description                                                                |
-|------------------------|--------------------------------------------|----------------------------------------------------------------------------|
-| **HasReservation**     | ReservationID , TableID | A table can have multiple reservations, but one reservation is link to only one table
-                            |
-| **MakeReservation**     | ReservationID , EmployeeID | An employee can make multiple reservations, but one reservation is made by one employee
-                            |
-| **ReceivesOrder**      | OrderID , TableID                  | A table can receive multiple orders                                        |
-| **TakesOrder**         | OrderID , EmployeeID               | An employee takes the order                                                |
-| **Contains**           | OrderID , ItemID , Quantity        | An order can contain multiple items                                        |
-| **AssignedToKitchen**  | EmployeeID , ShiftID               | Kitchen staff assigned to kitchen shifts                                   |
-| **AssignedToRestaurant**| EmployeeID , ShiftID              | Room staff assigned to restaurant shifts                                   |
-| **MakesShifts**        | ManagerID , ShiftID                | Managers are responsible for shift creation                                |
-| **Cashing**            | BillID , EmployeeID                | An employee (e.g., cashier) handles the bill                               |
+| Relationship            | Composition                 | Description                                                                 |
+|-------------------------|-----------------------------|-----------------------------------------------------------------------------|
+| **HasReservation**      | ReservationID, TableID      | A table can have multiple reservations, but one reservation is linked to only one table. |
+| **MakeReservation**     | ReservationID, EmployeeID   | An employee can make multiple reservations, but one reservation is made by one employee. |
+| **ReceivesOrder**       | OrderID, TableID            | A table can receive multiple orders.                                        |
+| **TakesOrder**          | OrderID, EmployeeID         | An employee takes the order.                                                |
+| **Contains**            | OrderID, ItemID, Quantity   | An order can contain multiple items.                                        |
+| **AssignedToKitchen**   | EmployeeID, ShiftID         | Kitchen staff assigned to kitchen shifts.                                   |
+| **AssignedToRestaurant**| EmployeeID, ShiftID         | Room staff assigned to restaurant shifts.                                   |
+| **MakesShifts**         | ManagerID, ShiftID          | Managers are responsible for shift creation.                                |
+| **Cashing**             | BillID, EmployeeID          | An employee (e.g., cashier) handles the bill.                               |
+                        |
 
 ---
 
