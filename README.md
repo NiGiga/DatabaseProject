@@ -59,7 +59,7 @@ The database supports core functionalities to manage restaurant operations effic
 
 ## 🔗 Relationship Tables
 
-| Relationship           | Attributes (if any)                         | Description                                                                |
+| Relationship           | Composition                         | Description                                                                |
 |------------------------|--------------------------------------------|----------------------------------------------------------------------------|
 | **HasReservation**     | ReservationID (FK), TableID (FK)           | A table can have multiple reservations                                     |
 | **ReceivesOrder**      | OrderID (FK), TableID (FK)                 | A table can receive multiple orders                                        |
