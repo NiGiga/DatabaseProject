@@ -146,7 +146,6 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 
 - `check_table_number`: Speeds up table availability checks.
 - `check_reservation_datetime`: Optimizes reservation searches.
-- `filter_employee_role`: Improves role-based filtering.
 - `check_shift_date & check_order_date`: Enhances scheduling and sales reports.
 
 ### Views
