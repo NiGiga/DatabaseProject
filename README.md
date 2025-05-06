@@ -63,13 +63,13 @@ The database supports core functionalities to manage restaurant operations effic
 |-------------------------|-----------------------------|-----------------------------------------------------------------------------|
 | **HasReservation**      | ReservationID, TableID      | A table can have multiple reservations, but one reservation is linked to only one table. |
 | **MakeReservation**     | ReservationID, EmployeeID   | An employee can make multiple reservations, but one reservation is made by one employee. |
-| **ReceivesOrder**       | OrderID, TableID            | A table can receive multiple orders.                                        |
-| **TakesOrder**          | OrderID, EmployeeID         | An employee takes the order.                                                |
-| **Contains**            | OrderID, ItemID, Quantity   | An order can contain multiple items.                                        |
+| **ReceivesOrder**       | OrderID, TableID            | A table can receive multiple orders, but one order is made for one table. |
+| **TakesOrder**          | OrderID, EmployeeID         | An employee takes multiple orders, but one order is made by one employee. |
+| **Contains**            | OrderID, ItemID, Quantity   | An order can contain multiple items, multiple elements can appear in multiple orders.|
 | **AssignedToKitchen**   | EmployeeID, ShiftID         | Kitchen staff assigned to kitchen shifts.                                   |
 | **AssignedToRestaurant**| EmployeeID, ShiftID         | Room staff assigned to restaurant shifts.                                   |
 | **MakesShifts**         | ManagerID, ShiftID          | Managers are responsible for shift creation.                                |
-| **Cashing**             | BillID, EmployeeID          | An employee (e.g., cashier) handles the bill.                               |
+| **Cashing**             | BillID, EmployeeID          | An employee handles the bill.                               |
                         
 
 ---
