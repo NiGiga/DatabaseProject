@@ -61,14 +61,14 @@ The database supports core functionalities to manage restaurant operations effic
 
 | Relationship           | Composition                         | Description                                                                |
 |------------------------|--------------------------------------------|----------------------------------------------------------------------------|
-| **HasReservation**     | ReservationID (FK), TableID (FK)           | A table can have multiple reservations                                     |
-| **ReceivesOrder**      | OrderID (FK), TableID (FK)                 | A table can receive multiple orders                                        |
-| **TakesOrder**         | OrderID (FK), EmployeeID (FK)              | An employee takes the order                                                |
-| **Contains**           | OrderID (FK), ItemID (FK), Quantity        | An order can contain multiple items                                        |
-| **AssignedToKitchen**  | EmployeeID (FK), ShiftID (FK)              | Kitchen staff assigned to kitchen shifts                                   |
-| **AssignedToRestaurant**| EmployeeID (FK), ShiftID (FK)             | Room staff assigned to restaurant shifts                                   |
-| **MakesShifts**        | ManagerID (FK), ShiftID (FK)               | Managers are responsible for shift creation                                |
-| **Cashing**            | BillID (FK), EmployeeID (FK)               | An employee (e.g., cashier) handles the bill                               |
+| **HasReservation**     | ReservationID , TableID            | A table can have multiple reservations                                     |
+| **ReceivesOrder**      | OrderID , TableID                  | A table can receive multiple orders                                        |
+| **TakesOrder**         | OrderID , EmployeeID               | An employee takes the order                                                |
+| **Contains**           | OrderID , ItemID , Quantity        | An order can contain multiple items                                        |
+| **AssignedToKitchen**  | EmployeeID , ShiftID               | Kitchen staff assigned to kitchen shifts                                   |
+| **AssignedToRestaurant**| EmployeeID , ShiftID              | Room staff assigned to restaurant shifts                                   |
+| **MakesShifts**        | ManagerID , ShiftID                | Managers are responsible for shift creation                                |
+| **Cashing**            | BillID , EmployeeID                | An employee (e.g., cashier) handles the bill                               |
 
 ---
 
