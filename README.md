@@ -47,7 +47,7 @@ The database supports core functionalities to manage restaurant operations effic
 ## Renovated Entity-Relationsip Diagram
 
 
-![Entity-Relationsip Diagram](ER_RMDB_RIS.jpegER_RMDB_RIS.jpeg)
+![Entity-Relationsip Diagram](ER_RMDB_RIS.jpeg)
 
 ---
 
