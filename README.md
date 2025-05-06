@@ -126,7 +126,7 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 ## Logic Schema
 
 
-![Logic Schema](dbLogic.jpg)
+![Logic Schema](dbLogic.png)
 
 ---
 
