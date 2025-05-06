@@ -128,6 +128,12 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 
 ---
 
+## Logic Schema
+
+
+![Entity-Relationsip Diagram](logicSchema.jpg)
+
+---
 
 
 
