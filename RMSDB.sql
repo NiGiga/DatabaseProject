@@ -1,61 +1,103 @@
--- CREA DATABASE E SELEZIONA
+-- 1. Drop & Create database
 DROP DATABASE IF EXISTS RestaurantDB;
 CREATE DATABASE RestaurantDB;
 USE RestaurantDB;
 
--- CREA TABELLE (semplificato per chiarezza, già visto prima)
-CREATE TABLE `Table` (
-    TableID INT AUTO_INCREMENT PRIMARY KEY,
-    Seats INT NOT NULL,
-    Location VARCHAR(255),
-    Status ENUM('Available', 'Occupied') DEFAULT 'Available'
+-- 2. Creazione tabelle
+
+CREATE TABLE TableRestaurant (
+    TableID INT PRIMARY KEY,
+    Seats INT,
+    Location VARCHAR(50),
+    Status VARCHAR(10) CHECK (Status IN ('Available', 'Occupied'))
 );
 
-CREATE TABLE Employee (
-    EmployeeID INT AUTO_INCREMENT PRIMARY KEY,
-    FirstName VARCHAR(100),
-    LastName VARCHAR(100),
+CREATE TABLE RoomStaff (
+    RSID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
     Phone VARCHAR(20),
-    Email VARCHAR(255),
-    Role ENUM('Waiter', 'BarMan', 'Chef', 'SousChef', 'Busboy', 'Manager')
+    Email VARCHAR(100),
+    Role VARCHAR(20) CHECK (Role IN ('Waiter', 'BarMan'))
+);
+
+CREATE TABLE KitchenStaff (
+    KSID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Phone VARCHAR(20),
+    Email VARCHAR(100),
+    Role VARCHAR(20) CHECK (Role IN ('Chef', 'Sue', 'Busboy'))
+);
+
+CREATE TABLE Manager (
+    ManagerID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Phone VARCHAR(20),
+    Email VARCHAR(100)
 );
 
 CREATE TABLE Shift (
-    ShiftID INT AUTO_INCREMENT PRIMARY KEY,
+    ShiftID INT PRIMARY KEY,
     StartTime TIME,
     EndTime TIME,
     Date DATE
 );
 
-CREATE TABLE Reservation (
-    ReservationID INT AUTO_INCREMENT PRIMARY KEY,
-    CustomerName VARCHAR(100),
-    CustomerPhone VARCHAR(20),
-    Email VARCHAR(255),
-    Date DATE,
-    Time TIME,
-    NumberOfGuests INT,
-    Status ENUM('Confirmed', 'Cancelled') DEFAULT 'Confirmed',
-    TableID INT,
-    FOREIGN KEY (TableID) REFERENCES `Table`(TableID)
-);
-
 CREATE TABLE MenuItem (
-    ItemID INT AUTO_INCREMENT PRIMARY KEY,
+    ItemID INT PRIMARY KEY,
     Name VARCHAR(100),
     Description TEXT,
     Price DECIMAL(10,2),
-    Availability BOOLEAN
+    Availability VARCHAR(3) CHECK (Availability IN ('Yes', 'No'))
 );
 
-CREATE TABLE `Order` (
-    OrderID INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE Reservation (
+    ReservationID INT PRIMARY KEY,
+    CustomerName VARCHAR(100),
+    CustomerPhone VARCHAR(20),
+    Email VARCHAR(100),
+    Date DATE,
+    Time TIME,
+    NumberOfGuests INT,
+    Status VARCHAR(10) CHECK (Status IN ('Confirmed', 'Cancelled'))
+);
+
+CREATE TABLE OrderRestaurant (
+    OrderID INT PRIMARY KEY,
     TableID INT,
-    EmployeeID INT,
-    OrderTime DATETIME,
+    RSID INT,
+    OrderTime TIME,
+    OrderAmount DECIMAL(10,2),
+    FOREIGN KEY (TableID) REFERENCES TableRestaurant(TableID),
+    FOREIGN KEY (RSID) REFERENCES RoomStaff(RSID)
+);
+
+CREATE TABLE CashRegister (
+    BillID INT PRIMARY KEY,
+    OrderID INT,
+    BillTime TIME,
     TotalAmount DECIMAL(10,2),
-    FOREIGN KEY (TableID) REFERENCES `Table`(TableID),
-    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
+    FOREIGN KEY (OrderID) REFERENCES OrderRestaurant(OrderID)
+);
+
+-- 3. Tabelle relazioni
+
+CREATE TABLE HasReservation (
+    ReservationID INT,
+    TableID INT,
+    PRIMARY KEY (ReservationID, TableID),
+    FOREIGN KEY (ReservationID) REFERENCES Reservation(ReservationID),
+    FOREIGN KEY (TableID) REFERENCES TableRestaurant(TableID)
+);
+
+CREATE TABLE MakeReservation (
+    ReservationID INT,
+    RSID INT,
+    PRIMARY KEY (ReservationID, RSID),
+    FOREIGN KEY (ReservationID) REFERENCES Reservation(ReservationID),
+    FOREIGN KEY (RSID) REFERENCES RoomStaff(RSID)
 );
 
 CREATE TABLE Contains (
@@ -63,61 +105,81 @@ CREATE TABLE Contains (
     ItemID INT,
     Quantity INT,
     PRIMARY KEY (OrderID, ItemID),
-    FOREIGN KEY (OrderID) REFERENCES `Order`(OrderID),
+    FOREIGN KEY (OrderID) REFERENCES OrderRestaurant(OrderID),
     FOREIGN KEY (ItemID) REFERENCES MenuItem(ItemID)
 );
 
-CREATE TABLE Bill (
-    BillID INT AUTO_INCREMENT PRIMARY KEY,
-    OrderID INT,
-    BillTime DATETIME,
-    TotalAmount DECIMAL(10,2),
-    FOREIGN KEY (OrderID) REFERENCES `Order`(OrderID)
+CREATE TABLE AssignedToKitchen (
+    KSID INT,
+    ShiftID INT,
+    PRIMARY KEY (KSID, ShiftID),
+    FOREIGN KEY (KSID) REFERENCES KitchenStaff(KSID),
+    FOREIGN KEY (ShiftID) REFERENCES Shift(ShiftID)
 );
 
--- DATI DI TEST
+CREATE TABLE AssignedToRestaurant (
+    RSID INT,
+    ShiftID INT,
+    PRIMARY KEY (RSID, ShiftID),
+    FOREIGN KEY (RSID) REFERENCES RoomStaff(RSID),
+    FOREIGN KEY (ShiftID) REFERENCES Shift(ShiftID)
+);
+
+CREATE TABLE MakesShifts (
+    ManagerID INT,
+    ShiftID INT,
+    PRIMARY KEY (ManagerID, ShiftID),
+    FOREIGN KEY (ManagerID) REFERENCES Manager(ManagerID),
+    FOREIGN KEY (ShiftID) REFERENCES Shift(ShiftID)
+);
+
+CREATE TABLE Cashing (
+    BillID INT,
+    RSID INT,
+    PRIMARY KEY (BillID, RSID),
+    FOREIGN KEY (BillID) REFERENCES CashRegister(BillID),
+    FOREIGN KEY (RSID) REFERENCES RoomStaff(RSID)
+);
+
+-- 4. Inserimento dati di esempio
 
 -- Tavoli
-INSERT INTO `Table` (Seats, Location, Status) VALUES
-(2, 'Main Hall', 'Available'),
-(4, 'Balcony', 'Occupied'),
-(6, 'Patio', 'Available');
-
--- Dipendenti
-INSERT INTO Employee (FirstName, LastName, Phone, Email, Role) VALUES
-('Alice', 'Rossi', '3331234567', 'alice.rossi@example.com', 'Waiter'),
-('Marco', 'Verdi', '3349876543', 'marco.verdi@example.com', 'Chef'),
-('Laura', 'Bianchi', '3355555555', 'laura.bianchi@example.com', 'Manager');
-
--- Turni
-INSERT INTO Shift (StartTime, EndTime, Date) VALUES
-('10:00:00', '14:00:00', '2025-05-01'),
-('18:00:00', '22:00:00', '2025-05-01');
+INSERT INTO TableRestaurant VALUES (1, 4, 'Window', 'Available');
+INSERT INTO TableRestaurant VALUES (2, 2, 'Center', 'Occupied');
 
 -- Menu
-INSERT INTO MenuItem (Name, Description, Price, Availability) VALUES
-('Pizza Margherita', 'Pomodoro, mozzarella e basilico', 8.50, TRUE),
-('Pasta Carbonara', 'Pasta, uova, pancetta e pecorino', 10.00, TRUE),
-('Tiramisù', 'Dolce tradizionale italiano', 5.00, TRUE);
+INSERT INTO MenuItem VALUES (101, 'Margherita Pizza', 'Classic pizza with tomato and mozzarella', 8.50, 'Yes');
+INSERT INTO MenuItem VALUES (102, 'Pasta Carbonara', 'Egg, cheese, pancetta, and pepper', 10.00, 'Yes');
+
+-- Room Staff
+INSERT INTO RoomStaff VALUES (1, 'Luca', 'Bianchi', '1234567890', 'luca@rest.it', 'Waiter');
+
+-- Kitchen Staff
+INSERT INTO KitchenStaff VALUES (1, 'Marco', 'Verdi', '0987654321', 'marco@rest.it', 'Chef');
+
+-- Manager
+INSERT INTO Manager VALUES (1, 'Chiara', 'Rossi', '111222333', 'chiara@rest.it');
+
+-- Turni
+INSERT INTO Shift VALUES (1, '10:00', '14:00', '2025-05-06');
 
 -- Prenotazioni
-INSERT INTO Reservation (CustomerName, CustomerPhone, Email, Date, Time, NumberOfGuests, Status, TableID) VALUES
-('Giovanni Neri', '3398765432', 'giovanni.neri@mail.com', '2025-05-01', '12:30:00', 2, 'Confirmed', 1),
-('Marta Gialli', '3381111222', 'marta.gialli@mail.com', '2025-05-01', '13:00:00', 4, 'Confirmed', 2);
+INSERT INTO Reservation VALUES (1, 'Alice', '333444555', 'alice@email.com', '2025-05-07', '12:30', 2, 'Confirmed');
+
+-- Relazioni prenotazione
+INSERT INTO HasReservation VALUES (1, 1);
+INSERT INTO MakeReservation VALUES (1, 1);
 
 -- Ordini
-INSERT INTO `Order` (TableID, EmployeeID, OrderTime, TotalAmount) VALUES
-(1, 1, '2025-05-01 12:35:00', 13.50),
-(2, 1, '2025-05-01 13:05:00', 15.00);
+INSERT INTO OrderRestaurant VALUES (1, 1, 1, '12:45', 18.50);
+INSERT INTO Contains VALUES (1, 101, 1);
+INSERT INTO Contains VALUES (1, 102, 1);
 
--- Dettagli ordini
-INSERT INTO Contains (OrderID, ItemID, Quantity) VALUES
-(1, 1, 1),  -- Pizza
-(1, 3, 1),  -- Tiramisù
-(2, 2, 1),  -- Pasta
-(2, 3, 1);  -- Tiramisù
+-- Cassa
+INSERT INTO CashRegister VALUES (1, 1, '13:00', 18.50);
+INSERT INTO Cashing VALUES (1, 1);
 
--- Fatture
-INSERT INTO Bill (OrderID, BillTime, TotalAmount) VALUES
-(1, '2025-05-01 13:00:00', 13.50),
-(2, '2025-05-01 13:30:00', 15.00);
+-- Assegnazioni turni
+INSERT INTO AssignedToKitchen VALUES (1, 1);
+INSERT INTO AssignedToRestaurant VALUES (1, 1);
+INSERT INTO MakesShifts VALUES (1, 1);
