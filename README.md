@@ -52,6 +52,33 @@ The database supports core functionalities to manage restaurant operations effic
 ---
 
 
+## 🧹 Elimination of Generalizations
+
+Regarding the **Employee** entity, it was decided to merge the child entities since the access patterns for shift-related relationships are distinct.  
+This choice results in a more complex SQL structure but offers greater robustness in managing access control and the information/actions available to users.
+
+---
+
+## 🧮 Redundancy Analysis
+
+**TotalAmount** and **OrderAmount** are attributes that can be derived from other entities:  
+- `OrderAmount` can be computed as the sum of `(quantity × price)` for each item in an order.  
+- `TotalAmount` can be calculated as the sum of all `OrderAmount` values indexed by table.
+
+It is estimated that an order can be placed **200 times per day**, and each order may contain around **20 products**.  
+In the worst-case scenario (20 distinct products per order), with an average of **3 orders per table (reservation)**, there would be up to **60 products** per table.  
+To compute the `TotalAmount`, each product must be multiplied by its unit price and the results summed.
+
+Therefore, **keeping the `OrderAmount` attribute** simplifies the calculation of `TotalAmount`, as only a simple sum is required.  
+On the other hand, **storing `TotalAmount` becomes unnecessary**, since its calculation has already been simplified via `OrderAmount`.
+
+### ✅ Summary
+
+We **keep the `OrderAmount` attribute**, even at the cost of violating **Third Normal Form (3NF)**,  
+and **eliminate the `TotalAmount` attribute**, which will instead be calculated dynamically at the moment of receipt printing.
+
+
+
 # 🍽️ Restaurant Management System – ER Model Breakdown
 
 ## 📦 Entity Tables
