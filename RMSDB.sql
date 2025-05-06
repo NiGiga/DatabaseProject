@@ -45,7 +45,7 @@ CREATE TABLE MenuItem (
 );
 
 CREATE TABLE Reservation (
-    ReservationID INT PRIMARY KEY,
+    ReservationID INT PRIMARY KEY AUTO_INCREMENT,
     CustomerName VARCHAR(100),
     CustomerPhone VARCHAR(20),
     Email VARCHAR(100),
@@ -58,6 +58,7 @@ CREATE TABLE Reservation (
     FOREIGN KEY (TableID) REFERENCES TableRestaurant(TableID),
     FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
 );
+
 
 CREATE TABLE OrderRestaurant (
     OrderID INT PRIMARY KEY,
