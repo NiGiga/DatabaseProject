@@ -48,10 +48,12 @@ The database supports core functionalities to manage restaurant operations effic
 | Entity       | Attributes                                                                 |
 |--------------|----------------------------------------------------------------------------|
 | **Table**        | TableID (PK), Seats, Location, Status (Available / Occupied)               |
-| **Employee**     | EmployeeID (PK), FirstName, LastName, Phone, Email, Role                  |
+| **Room staff**   | RSID (PK), FirstName, LastName, Phone, Email, Role                     |
+| **Kitchen staff**| KSID (PK), FirstName, LastName, Phone, Email, Role                     |
+| **Manager**      | ManagerID (PK), FirstName, LastName, Phone, Email                      |
 | **Shift**        | ShiftID (PK), StartTime, EndTime, Date                                    |
 | **Reservation**  | ReservationID (PK), CustomerName, CustomerPhone, Email, Date, Time, NumberOfGuests, Status (Confirmed / Cancelled) |
-| **Order**        | OrderID (PK), TableID (FK), EmployeeID (FK), OrderTime, TotalAmount       |
+| **Order**        | OrderID (PK), TableID (FK), EmployeeID (FK), OrderTime, OrderAmount       |
 | **MenuItem**     | ItemID (PK), Name, Description, Price, Availability (Yes / No)            |
 | **Cash Register**         | BillID (PK), OrderID (FK), BillTime, TotalAmount                 |
 
@@ -62,14 +64,14 @@ The database supports core functionalities to manage restaurant operations effic
 | Relationship            | Composition                 | Description                                                                 |
 |-------------------------|-----------------------------|-----------------------------------------------------------------------------|
 | **HasReservation**      | ReservationID, TableID      | A table can have multiple reservations, but one reservation is linked to only one table. |
-| **MakeReservation**     | ReservationID, EmployeeID   | An employee can make multiple reservations, but one reservation is made by one employee. |
+| **MakeReservation**     | ReservationID, RSID         | An employee can make multiple reservations, but one reservation is made by one employee. |
 | **ReceivesOrder**       | OrderID, TableID            | A table can receive multiple orders, but one order is made for one table. |
-| **TakesOrder**          | OrderID, EmployeeID         | An employee takes multiple orders, but one order is made by one employee. |
+| **TakesOrder**          | OrderID, RSID               | An employee takes multiple orders, but one order is made by one employee. |
 | **Contains**            | OrderID, ItemID, Quantity   | An order can contain multiple items, multiple elements can appear in multiple orders.|
-| **AssignedToKitchen**   | EmployeeID, ShiftID         | Kitchen staff assigned to kitchen shifts.                                   |
-| **AssignedToRestaurant**| EmployeeID, ShiftID         | Room staff assigned to restaurant shifts.                                   |
+| **AssignedToKitchen**   | KSID, ShiftID               | Kitchen staff assigned to kitchen shifts.                                   |
+| **AssignedToRestaurant**| RSID, ShiftID               | Room staff assigned to restaurant shifts.                                   |
 | **MakesShifts**         | ManagerID, ShiftID          | Managers are responsible for shift creation.                                |
-| **Cashing**             | BillID, EmployeeID          | An employee handles the bill.                               |
+| **Cashing**             | BillID, RSID                | An employee handles the bill.                               |
                         
 
 ---
@@ -79,37 +81,16 @@ The database supports core functionalities to manage restaurant operations effic
 | Action                     | Type        | Frequency Estimate       |
 |----------------------------|-------------|---------------------------|
 | Make a reservation         | Interactive | 50–100/day                |
-| Assign employee to shift   | Batch       | 2–3/day (pre-shift setup) |
+| Check working hours        | Interactive | 2–3/day                   |
 | Place an order             | Interactive | 200–300/day               |
 | Generate bill              | Interactive | ~200/day                  |
-| Add/update menu item       | Batch       | ~10/week                  |
-| Assign kitchen staff       | Batch       | 1–2/day                   |
-| Cash out an order          | Interactive | ~200/day                  |
+| Update menu item quantity  | Batch       | 200–300/day               |
 | Cancel reservation         | Interactive | ~10/day                   |
-| Create shift (manager)     | Interactive | 1–2/day                   |
+| Create shift (manager)     | Interactive | 1–2/week                  |
 
 ---
 
-## 🧱 Logical Schema (Relational Structure)
 
-- **Table**(TableID, –, Seats, Location, Status)
-- **Employee**(EmployeeID, –, FirstName, LastName, Phone, Email, Role)
-- **Shift**(ShiftID, –, StartTime, EndTime, Date)
-- **Reservation**(ReservationID, TableID (→ Table), –, CustomerName, CustomerPhone, Email, Date, Time, NumberOfGuests, Status)
-- **Order**(OrderID, TableID (→ Table), EmployeeID (→ Employee), OrderTime, TotalAmount)
-- **MenuItem**(ItemID, –, Name, Description, Price, Availability)
-- **Cash Register**(BillID, OrderID (→ Order), –, BillTime, TotalAmount)
-
-### Relationships
-
-- **HasReservation**(ReservationID (→ Reservation), TableID (→ Table), –)
-- **ReceivesOrder**(OrderID (→ Order), TableID (→ Table), –)
-- **TakesOrder**(OrderID (→ Order), EmployeeID (→ Employee), –)
-- **Contains**(OrderID, ItemID, OrderID (→ Order), ItemID (→ MenuItem), Quantity)
-- **AssignedToKitchen**(EmployeeID, ShiftID, EmployeeID (→ Employee), ShiftID (→ Shift), –)
-- **AssignedToRestaurant**(EmployeeID, ShiftID, EmployeeID (→ Employee), ShiftID (→ Shift), –)
-- **MakesShifts**(ManagerID (→ Employee), ShiftID (→ Shift), –)
-- **Cashing**(BillID (→ Cash Register), EmployeeID (→ Employee), –)
 
 
 
