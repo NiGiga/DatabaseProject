@@ -70,7 +70,7 @@ The database supports core functionalities to manage restaurant operations effic
 | **AssignedToRestaurant**| EmployeeID, ShiftID         | Room staff assigned to restaurant shifts.                                   |
 | **MakesShifts**         | ManagerID, ShiftID          | Managers are responsible for shift creation.                                |
 | **Cashing**             | BillID, EmployeeID          | An employee (e.g., cashier) handles the bill.                               |
-                        |
+                        
 
 ---
 
