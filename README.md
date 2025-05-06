@@ -61,9 +61,10 @@ The database supports core functionalities to manage restaurant operations effic
 
 | Relationship           | Composition                         | Description                                                                |
 |------------------------|--------------------------------------------|----------------------------------------------------------------------------|
-| **HasReservation**     | ReservationID , TableID            | A table can have multiple reservations, but one reservation is link to only one table
+| **HasReservation**     | ReservationID , TableID | A table can have multiple reservations, but one reservation is link to only one table|
 
-| **MakeReservation**     | ReservationID , EmployeeID            | An employee can make multiple reservations, but one reservation is made by one employee                                      |
+| **MakeReservation**     | ReservationID , EmployeeID | An employee can make multiple reservations, but one reservation is made by one employee|
+
 | **ReceivesOrder**      | OrderID , TableID                  | A table can receive multiple orders                                        |
 | **TakesOrder**         | OrderID , EmployeeID               | An employee takes the order                                                |
 | **Contains**           | OrderID , ItemID , Quantity        | An order can contain multiple items                                        |
