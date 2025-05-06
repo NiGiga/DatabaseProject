@@ -41,16 +41,19 @@ The database supports core functionalities to manage restaurant operations effic
 ![Entity-Relationsip Diagram](ER_RMDB.jpeg)
 
 ---
+## ⚙️ Action Types & Frequency Estimates
 
-
-
-## Renovated Entity-Relationsip Diagram
-
-
-![Entity-Relationsip Diagram](ER_RMDB_RIS.jpeg)
+| Action                     | Type        | Frequency Estimate       |
+|----------------------------|-------------|---------------------------|
+| Make a reservation         | Interactive | 50–100/day                |
+| Check working hours        | Interactive | 2–3/day                   |
+| Place an order             | Interactive | 200–300/day               |
+| Generate bill              | Interactive | ~200/day                  |
+| Update menu item quantity  | Batch       | 200–300/day               |
+| Cancel reservation         | Interactive | ~10/day                   |
+| Create shift (manager)     | Interactive | 1–2/week                  |
 
 ---
-
 
 ## 🧹 Elimination of Generalizations
 
@@ -76,6 +79,17 @@ On the other hand, **storing `TotalAmount` becomes unnecessary**, since its calc
 
 We **keep the `OrderAmount` attribute**, even at the cost of violating **Third Normal Form (3NF)**,  
 and **eliminate the `TotalAmount` attribute**, which will instead be calculated dynamically at the moment of receipt printing.
+
+
+
+
+## Renovated Entity-Relationsip Diagram
+
+
+![Entity-Relationsip Diagram](ER_RMDB_RIS.jpeg)
+
+---
+
 
 
 
@@ -114,19 +128,6 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 
 ---
 
-## ⚙️ Action Types & Frequency Estimates
-
-| Action                     | Type        | Frequency Estimate       |
-|----------------------------|-------------|---------------------------|
-| Make a reservation         | Interactive | 50–100/day                |
-| Check working hours        | Interactive | 2–3/day                   |
-| Place an order             | Interactive | 200–300/day               |
-| Generate bill              | Interactive | ~200/day                  |
-| Update menu item quantity  | Batch       | 200–300/day               |
-| Cancel reservation         | Interactive | ~10/day                   |
-| Create shift (manager)     | Interactive | 1–2/week                  |
-
----
 
 
 
