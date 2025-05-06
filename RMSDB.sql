@@ -61,7 +61,7 @@ CREATE TABLE Reservation (
 
 
 CREATE TABLE OrderRestaurant (
-    OrderID INT PRIMARY KEY,
+    OrderID INT PRIMARY KEY AUTO_INCREMENT,
     TableID INT,
     EmployeeID INT,
     OrderTime TIME,
@@ -69,6 +69,7 @@ CREATE TABLE OrderRestaurant (
     FOREIGN KEY (TableID) REFERENCES TableRestaurant(TableID),
     FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
 );
+
 
 CREATE TABLE Contains (
     OrderID INT,
