@@ -57,8 +57,7 @@ The database supports core functionalities to manage restaurant operations effic
 
 ## 🧹 Elimination of Generalizations
 
-Regarding the **Employee** entity, it was decided to merge the child entities since the access patterns for shift-related relationships are distinct.  
-This choice results in a more complex SQL structure but offers greater robustness in managing access control and the information/actions available to users.
+Regarding the **Employee** entity, it was decided to merge the child entities since the access patterns for shift-related relationships are not distinct.  
 
 ---
 
@@ -97,35 +96,31 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 
 ## 📦 Entity Tables
 
-| Entity       | Attributes                                                                 |
-|--------------|----------------------------------------------------------------------------|
-| **Table**        | TableID (PK), Seats, Location, Status (Available / Occupied)               |
-| **Room staff**   | RSID (PK), FirstName, LastName, Phone, Email, Role                     |
-| **Kitchen staff**| KSID (PK), FirstName, LastName, Phone, Email, Role                     |
-| **Manager**      | ManagerID (PK), FirstName, LastName, Phone, Email                      |
-| **Shift**        | ShiftID (PK), StartTime, EndTime, Date                                    |
-| **Reservation**  | ReservationID (PK), CustomerName, CustomerPhone, Email, Date, Time, NumberOfGuests, Status (Confirmed / Cancelled) |
-| **Order**        | OrderID (PK), TableID (FK), EmployeeID (FK), OrderTime, OrderAmount       |
-| **MenuItem**     | ItemID (PK), Name, Description, Price, Availability (Yes / No)            |
-| **Cash Register**         | BillID (PK), OrderID (FK), BillTime, TotalAmount                 |
-
+| Entity              | Main Attributes                                                                                                                               |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| **TableRestaurant** | `TableID (PK)`, `Seats`, `Location`, `Status`                                                                                                 |
+| **Employee**        | `EmployeeID (PK)`, `FirstName`, `LastName`, `Phone`, `Email`, `Role`                                                                          |
+| **Shift**           | `ShiftID (PK)`, `StartTime`, `EndTime`, `Date`                                                                                                |
+| **EmployeeShift**   | `EmployeeID (FK)`, `ShiftID (FK)`                                                                                                             |
+| **MenuItem**        | `ItemID (PK)`, `Name`, `Description`, `Price`, `Availability`                                                                                 |
+| **Reservation**     | `ReservationID (PK)`, `CustomerName`, `CustomerPhone`, `Email`, `Date`, `Time`, `NumberOfGuests`, `Status`, `TableID (FK)`, `EmployeeID (FK)` |
+| **OrderRestaurant** | `OrderID (PK)`, `TableID (FK)`, `EmployeeID (FK)`, `OrderTime`, `OrderAmount`                                                                 |
+| **Contains**        | `OrderID (FK)`, `ItemID (FK)`, `Quantity`                                                                                                     |
+| **CashRegister**    | `BillID (PK)`, `OrderID (FK)`, `BillTime`, `TotalAmount`, `CashierID (FK)`                                                                    |
 ---
 
 ## 🔗 Relationship Tables
 
-| Relationship            | Composition                 | Description                                                                 |
-|-------------------------|-----------------------------|-----------------------------------------------------------------------------|
-| **HasReservation**      | ReservationID, TableID      | A table can have multiple reservations, but one reservation is linked to only one table. |
-| **MakeReservation**     | ReservationID, RSID         | An employee can make multiple reservations, but one reservation is made by one employee. |
-| **ReceivesOrder**       | OrderID, TableID            | A table can receive multiple orders, but one order is made for one table. |
-| **TakesOrder**          | OrderID, RSID               | An employee takes multiple orders, but one order is made by one employee. |
-| **Contains**            | OrderID, ItemID, Quantity   | An order can contain multiple items, multiple elements can appear in multiple orders.|
-| **AssignedToKitchen**   | KSID, ShiftID               | Kitchen staff assigned to kitchen shifts.                                   |
-| **AssignedToRestaurant**| RSID, ShiftID               | Room staff assigned to restaurant shifts.                                   |
-| **MakesShifts**         | ManagerID, ShiftID          | Managers are responsible for shift creation.                                |
-| **Cashing**             | BillID, RSID                | An employee handles the bill.                               |
-                        
-
+| Relationship         | Entities Involved                 | Description                                                      |
+| -------------------- | --------------------------------- | ---------------------------------------------------------------- |
+| **AssignedToShift**  | Employee ↔ Shift                  | An employee can be assigned to multiple shifts (`EmployeeShift`) |
+| **MakesReservation** | Employee ↔ Reservation            | An employee is responsible for creating a reservation            |
+| **ReservationTable** | TableRestaurant ↔ Reservation     | A reservation is associated with a specific table                |
+| **ReceivesOrder**    | TableRestaurant ↔ OrderRestaurant | A table can receive multiple orders                              |
+| **TakesOrder**       | Employee ↔ OrderRestaurant        | An employee takes the order                                      |
+| **ContainsItem**     | OrderRestaurant ↔ MenuItem        | An order contains one or more menu items (`Contains`)            |
+| **GeneratesBill**    | OrderRestaurant ↔ CashRegister    | An order results in a bill at the cash register                  |
+| **HandledBy**        | CashRegister ↔ Employee           | Each bill is handled by a cashier (employee)                     |
 ---
 
 ## Logic Schema
