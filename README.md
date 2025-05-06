@@ -41,6 +41,17 @@ The database supports core functionalities to manage restaurant operations effic
 ![Entity-Relationsip Diagram](ER_RMDB.jpeg)
 
 ---
+
+
+
+## Renovated Entity-Relationsip Diagram
+
+
+![Entity-Relationsip Diagram](ER_RMDB_RIS.jpegER_RMDB_RIS.jpeg)
+
+---
+
+
 # 🍽️ Restaurant Management System – ER Model Breakdown
 
 ## 📦 Entity Tables
