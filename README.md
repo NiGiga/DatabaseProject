@@ -137,12 +137,16 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 #
 ## Optimizations
 
-### Indexes
+### Python functions
 
-- `check_table_number`: Speeds up table availability checks.
-- `check_reservation_datetime`: Optimizes reservation searches.
-- `check_shift_date & check_order_date`: Enhances scheduling and sales reports.
-- 
+- `get_available_tables`: Shows the avaiable tables.
+- `show_menu`: Show the items (id, name, description, price, avaiability).
+- `show_shift (singular or all)`: Enhances scheduling.
+- `generate_report`: Show incomes reports and clients turnout in a specific period.
+- `print_recipe`: Print the bill of a specific reservation.
+- `add_reservation`: Adds a new reservation giving the free tables for a specific date and time.
+- `edit_reservation`: Modify a reservetion checking the avaiability of the tables.
+- `delate_reservation`: Delete resrvation.
 
 ### Views
 
