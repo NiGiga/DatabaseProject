@@ -147,6 +147,7 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 - `add_reservation`: Adds a new reservation giving the free tables for a specific date and time.
 - `edit_reservation`: Modify a reservetion checking the avaiability of the tables.
 - `delate_reservation`: Delete resrvation.
+- `edit_shift`: Modify or insert a Shift (for manager only).
 
 ### Views
 
