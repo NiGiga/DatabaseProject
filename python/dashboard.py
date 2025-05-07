@@ -16,6 +16,8 @@ from decimal import Decimal
 
 
 # ------------------------- FUNZIONI SPECIALI -------------------------
+
+# ------------------------- Aggiungi prenotazione -------------------------
 def get_connection():
     return mysql.connector.connect(
         host="localhost",
@@ -88,6 +90,8 @@ def add_reservation_gui():
 
     tk.Button(window, text="Inserisci Prenotazione", command=submit).pack(pady=10)
 
+# ------------------------- Mostra tavoli disponibili -------------------------
+
 def show_available_tables_gui():
     window = tk.Toplevel(root)
     window.title("Controlla Tavoli Disponibili")
@@ -144,6 +148,8 @@ def show_available_tables_gui():
             messagebox.showerror("Errore", "Formato data o ora non valido.")
 
     tk.Button(window, text="Cerca", command=submit).pack(pady=10)
+
+# ------------------------- Mostra il report -------------------------
 
 def show_report_gui():
     window = tk.Toplevel(root)
@@ -213,6 +219,9 @@ def show_report_gui():
 
     tk.Button(window, text="Genera Report", command=generate).pack(pady=5)
 
+
+# ------------------------- Stampa ricevuta -------------------------
+
 def print_receipt_gui():
     window = tk.Toplevel(root)
     window.title("Stampa Ricevuta")
@@ -246,6 +255,8 @@ def print_receipt_gui():
 
     tk.Button(window, text="Stampa Ricevuta", command=execute).pack(pady=10)
 
+# ------------------------- Mostra il menù -------------------------
+
 def show_menu_gui():
     window = tk.Toplevel(root)
     window.title("Menù del Ristorante")
@@ -276,7 +287,8 @@ def show_menu_gui():
     except Exception as e:
         messagebox.showerror("Errore", f"Errore nel caricamento del menù: {e}")
 
-# ------------------------ Autenticazione Manager ------------------------
+# ------------------------ Gestione Turni GUI ------------------------
+# ------------------------ Autenticazione Manager --------------------
 def authenticate_manager(employee_id, password):
     conn = get_connection()
     cursor = conn.cursor()
@@ -289,7 +301,6 @@ def authenticate_manager(employee_id, password):
     conn.close()
     return result and result[0] == "Manager"
 
-# ------------------------ Gestione Turni GUI ------------------------
 def edit_shift_gui():
     window = tk.Toplevel()
     window.title("Gestione Turni (Manager)")
@@ -390,7 +401,7 @@ def show_shift_editor(parent):
     tk.Button(frame, text="Assegna Dipendente", command=add_employee).pack(pady=5)
     tk.Button(frame, text="Salva Turno", command=save_shift).pack(pady=5)
 
-# ------------------------ Fetch prenotazioni ------------------------
+# ------------------------ Trova prenotazioni ------------------------
 def fetch_reservations_by_field(field, value):
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
@@ -407,7 +418,7 @@ def fetch_reservations_by_field(field, value):
     conn.close()
     return results
 
-# ------------------------ GUI per modificare prenotazione ------------------------
+# ------------------------ Modifica prenotazione ------------------------
 def edit_reservation_gui():
     window = tk.Toplevel()
     window.title("Modifica Prenotazione")
@@ -507,8 +518,9 @@ def edit_reservation_gui():
         tk.Button(form, text="Salva modifiche", command=save_changes).pack(pady=10)
 
     tk.Button(window, text="Cerca e Modifica", command=find_and_edit).pack(pady=10)
+    
 
-# ------------------------ GUI per cancellare prenotazione ------------------------
+# ------------------------ Cancellazione prenotazione ------------------------
 def delete_reservation_gui():
     window = tk.Toplevel()
     window.title("Elimina Prenotazione")
@@ -557,7 +569,7 @@ def delete_reservation_gui():
 
     tk.Button(window, text="Cerca e Cancella", command=search_and_delete).pack(pady=10)
 
-# ------------------------ GUI per inserimento nuovo ordine ------------------------
+# ------------------------ Inserimento nuovo ordine ------------------------
 def add_order_gui():
     window = tk.Toplevel()
     window.title("Inserimento Nuovo Ordine")
@@ -640,7 +652,8 @@ def add_order_gui():
 
     tk.Button(window, text="Crea Ordine", command=start_order).pack(pady=10)
 
-# ------------------------ Visualizza turni dipendenti ------------------------
+
+# ------------------------ Visualizzazione turni dipendenti ------------------------
 def show_shifts_gui():
     window = tk.Toplevel()
     window.title("Turni Dipendenti")
@@ -709,6 +722,7 @@ def show_shifts_gui():
             messagebox.showerror("Errore", f"Errore nel recupero dei turni: {e}")
 
     tk.Button(window, text="Visualizza Turni", command=fetch_shifts).pack(pady=10)
+
 
 # ------------------------- DASHBOARD PRINCIPALE -------------------------
 root = tk.Tk()
