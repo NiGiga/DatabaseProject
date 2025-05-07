@@ -11,7 +11,7 @@ def get_connection():
     return mysql.connector.connect(
         host="localhost",  # Host locale
         user="root",  # Username MySQL
-        password="Pidosh1998@",  # Password MySQL
+        password="UR_PSW@",  # Password MySQL
         database="RestaurantDB"  # Nome del database da usare
     )
 
