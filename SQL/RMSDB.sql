@@ -14,7 +14,7 @@ CREATE TABLE TableRestaurant (
 
 CREATE TABLE Employee (
     EmployeeID INT PRIMARY KEY AUTO_INCREMENT,
-    Password INT AUTO_INCREMENT, -- per comodità
+    Password INT, -- per comodità
     FirstName VARCHAR(50),
     LastName VARCHAR(50),
     Phone VARCHAR(20),
