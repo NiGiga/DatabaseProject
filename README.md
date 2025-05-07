@@ -38,7 +38,7 @@ The database supports core functionalities to manage restaurant operations effic
 ## Entity-Relationsip Diagram
 
 
-![Entity-Relationsip Diagram](ER_RMDB.jpeg)
+![Entity-Relationsip Diagram](images/ER_RMDB.jpeg)
 
 ---
 ## ⚙️ Action Types & Frequency Estimates
@@ -85,7 +85,7 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 ## Renovated Entity-Relationsip Diagram
 
 
-![Entity-Relationsip Diagram](ER_RMDB_RIS.jpeg)
+![Entity-Relationsip Diagram](images/ER_RMDB_RIS.jpeg)
 
 ---
 
@@ -126,7 +126,7 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 ## Logic Schema
 
 
-![Logic Schema](dbLogic.png)
+![Logic Schema](images/dbLogic.png)
 
 ---
 
