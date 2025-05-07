@@ -13,7 +13,7 @@ def get_connection():
     return mysql.connector.connect(
         host="localhost",  # Indirizzo del server (localhost se locale)
         user="root",  # Nome utente per accedere al DB
-        password="Pidosh1998@",  # Password utente MySQL
+        password="UR_PSW",  # Password utente MySQL
         database="RestaurantDB"  # Nome del database da utilizzare
     )
 
