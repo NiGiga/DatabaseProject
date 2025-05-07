@@ -26,7 +26,6 @@ The database supports core functionalities to manage restaurant operations effic
 - **Employee Management**: Add/update/remove employee details and assign shifts.
 - **Handle Reservations**: Create, update, cancel, and confirm reservations.
 - **Order Management**: Track customer orders and calculate totals.
-- **Menu Management**: Add, update, and remove menu items.
 - **Shift Scheduling**: Assign employees to shifts.
 - **Real-Time Table Availability**: Check table availability.
 - **Sales and Performance Tracking**: Generate sales and employee reports.
