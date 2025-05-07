@@ -22,7 +22,7 @@ CREATE TABLE Employee (
 );
 
 CREATE TABLE Shift (
-    ShiftID INT PRIMARY KEY,
+    ShiftID INT PRIMARY KEY AUTO_INCREMENT,
     StartTime TIME,
     EndTime TIME,
     Date DATE
