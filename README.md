@@ -164,5 +164,10 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 
 ## UI overview
 ![Main menu](images/main_menu.png)
+---
+
+### Printing recipt
+![Main menu](images/print_recipt.png)
+
 
 **Author**: Nicola Gigante
