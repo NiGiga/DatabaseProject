@@ -162,6 +162,7 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 - No support for custom menu modifications.
 - Employees cannot hold multiple roles in the same shift.
 
-##
+## UI overview
+![Main menu](images/Screenshot 2025-05-07 141124.png)
 
 **Author**: Nicola Gigante
