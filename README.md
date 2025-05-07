@@ -163,6 +163,6 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 - Employees cannot hold multiple roles in the same shift.
 
 ## UI overview
-![Main menu](images/Screenshot 2025-05-07 141124.png)
+![Main menu](images/main_menu.png)
 
 **Author**: Nicola Gigante
