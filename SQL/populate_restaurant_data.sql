@@ -29,17 +29,17 @@ INSERT INTO TableRestaurant (TableID, Seats, Location, Status) VALUES
 (17, 2, 'Sala C', 'Occupied'), (18, 6, 'Sala A', 'Available'), (19, 4, 'Sala B', 'Available'), (20, 2, 'Terrazza', 'Available');
 
 -- Inserimento dipendenti
-INSERT INTO Employee (EmployeeID, FirstName, LastName, Phone, Email, Role) VALUES
-(1, 'Mario', 'Rossi', '1111111111', 'mario@rest.com', 'Manager'),
-(2, 'Luigi', 'Verdi', '2222222222', 'luigi@rest.com', 'Chef'),
-(3, 'Anna', 'Bianchi', '3333333333', 'anna@rest.com', 'Waiter'),
-(4, 'Sara', 'Neri', '4444444444', 'sara@rest.com', 'Waiter'),
-(5, 'Giorgio', 'Russo', '5555555555', 'giorgio@rest.com', 'Sue'),
-(6, 'Laura', 'Ferrari', '6666666666', 'laura@rest.com', 'BarMan'),
-(7, 'Luca', 'Esposito', '7777777777', 'luca@rest.com', 'Chef'),
-(8, 'Paolo', 'Conti', '8888888888', 'paolo@rest.com', 'Waiter'),
-(9, 'Elisa', 'Costa', '9999999999', 'elisa@rest.com', 'Busboy'),
-(10, 'Marta', 'Bruni', '0000000000', 'marta@rest.com', 'Waiter');
+INSERT INTO Employee (EmployeeID, Password, FirstName, LastName, Phone, Email, Role) VALUES
+(1, 1234, 'Mario', 'Rossi', '1111111111', 'mario@rest.com', 'Manager'),
+(2, 4321, 'Luigi', 'Verdi', '2222222222', 'luigi@rest.com', 'Chef'),
+(3, 4321, 'Anna', 'Bianchi', '3333333333', 'anna@rest.com', 'Waiter'),
+(4, 4321, 'Sara', 'Neri', '4444444444', 'sara@rest.com', 'Waiter'),
+(5, 4321, 'Giorgio', 'Russo', '5555555555', 'giorgio@rest.com', 'Sue'),
+(6, 4321, 'Laura', 'Ferrari', '6666666666', 'laura@rest.com', 'BarMan'),
+(7, 4321, 'Luca', 'Esposito', '7777777777', 'luca@rest.com', 'Chef'),
+(8, 4321, 'Paolo', 'Conti', '8888888888', 'paolo@rest.com', 'Waiter'),
+(9, 4321, 'Elisa', 'Costa', '9999999999', 'elisa@rest.com', 'Busboy'),
+(10, 4321, 'Marta', 'Bruni', '0000000000', 'marta@rest.com', 'Waiter');
 
 -- Inserimento turni
 INSERT INTO Shift (ShiftID, StartTime, EndTime, Date) VALUES
