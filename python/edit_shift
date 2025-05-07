@@ -1,0 +1,102 @@
+import mysql.connector
+from datetime import datetime
+
+# ------------------------ Connessione DB ------------------------
+def get_connection():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="UR_PSW",
+        database="RestaurantDB"
+    )
+
+# ------------------------ Verifica Manager con password ------------------------
+def authenticate_manager(employee_id, password):
+    """
+    Verifica se il dipendente è un Manager e se la password corrisponde.
+    """
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT Role FROM Employee
+        WHERE EmployeeID = %s AND Password = %s
+    """, (employee_id, password))
+    result = cursor.fetchone()
+    cursor.close()
+    conn.close()
+
+    if result and result[0] == 'Manager':
+        return True
+    return False
+
+# ------------------------ Inserisci turno ------------------------
+def insert_shift():
+    """
+    Inserisce un nuovo turno e lo assegna a uno o più dipendenti.
+    """
+    date_str = input("📅 Inserisci la data del turno (YYYY-MM-DD): ").strip()
+    start_time = input("🕒 Ora di inizio (HH:MM): ").strip()
+    end_time = input("🕒 Ora di fine (HH:MM): ").strip()
+
+    try:
+        datetime.strptime(date_str, "%Y-%m-%d")
+        datetime.strptime(start_time, "%H:%M")
+        datetime.strptime(end_time, "%H:%M")
+    except ValueError:
+        print("❌ Formato data o ora non valido.")
+        return
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    try:
+        # Inserisce nuovo turno
+        cursor.execute("""
+            INSERT INTO Shift (Date, StartTime, EndTime)
+            VALUES (%s, %s, %s)
+        """, (date_str, start_time, end_time))
+        shift_id = cursor.lastrowid
+
+        # Assegna i dipendenti
+        print("➕ Assegna dipendenti al turno (premi invio per terminare):")
+        while True:
+            emp_id = input("👤 ID dipendente: ").strip()
+            if not emp_id:
+                break
+            try:
+                cursor.execute("""
+                    INSERT INTO EmployeeShift (EmployeeID, ShiftID)
+                    VALUES (%s, %s)
+                """, (int(emp_id), shift_id))
+                print(f"✅ Dipendente {emp_id} assegnato.")
+            except Exception as e:
+                print(f"⚠️ Errore con dipendente {emp_id}: {e}")
+
+        conn.commit()
+        print("✅ Turno registrato e assegnato correttamente.")
+
+    except Exception as e:
+        print(f"❌ Errore: {e}")
+        conn.rollback()
+    finally:
+        cursor.close()
+        conn.close()
+
+# ------------------------ Main ------------------------
+def main():
+    print("👮 AUTENTICAZIONE MANAGER PER GESTIONE TURNI\n")
+    try:
+        emp_id = int(input("🔑 Inserisci il tuo EmployeeID: ").strip())
+        password = int(input("🔐 Inserisci la tua password numerica: ").strip())
+    except ValueError:
+        print("❌ Inserimento non valido.")
+        return
+
+    if authenticate_manager(emp_id, password):
+        print("✅ Accesso autorizzato. Puoi gestire i turni.")
+        insert_shift()
+    else:
+        print("❌ Accesso negato. Credenziali non valide o ruolo non autorizzato.")
+
+if __name__ == "__main__":
+    main()
