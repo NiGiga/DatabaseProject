@@ -1,4 +1,4 @@
-# Restaurant Management System Database – Overview
+# 🍕 Restaurant Management System Database – Overview
 
 This project is a **Restaurant Management System Database** design that covers essential operations such as reservations, orders, employees, and menu management. It ensures data integrity through structured relationships and constraints.
 
