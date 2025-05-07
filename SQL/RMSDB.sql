@@ -91,7 +91,7 @@ CREATE TABLE CashRegister (
     FOREIGN KEY (CashierID) REFERENCES Employee(EmployeeID)
 );
 
--- Views
+-- Views per scopi illustrativi, effetivamente si è poi scelto di precopilare le query
 
 -- 1. Tavoli disponibili
 CREATE VIEW AvailableTables AS
