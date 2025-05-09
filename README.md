@@ -98,7 +98,7 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 | Entity              | Main Attributes                                                                                                                               |
 | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | **TableRestaurant** | `TableID (PK)`, `Seats`, `Location`, `Status`                                                                                                 |
-| **Employee**        | `EmployeeID (PK)`, `FirstName`, `LastName`, `Phone`, `Email`, `Role`                                                                          |
+| **Employee**        | `EmployeeID (PK)`, `Password`, `FirstName`, `LastName`, `Phone`, `Email`, `Role`                                                                          |
 | **Shift**           | `ShiftID (PK)`, `StartTime`, `EndTime`, `Date`                                                                                                |
 | **EmployeeShift**   | `EmployeeID (FK)`, `ShiftID (FK)`                                                                                                             |
 | **MenuItem**        | `ItemID (PK)`, `Name`, `Description`, `Price`, `Availability`                                                                                 |
