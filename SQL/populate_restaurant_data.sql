@@ -1,4 +1,4 @@
--- Generato con ChatGPT
+-- I dati sono stati generati con ChatGPT
 
 -- Usa il database
 USE RestaurantDB;
