@@ -99,12 +99,10 @@ INSERT INTO Reservation (ReservationID, CustomerName, CustomerPhone, Email, Date
 (20, 'Alina Monti', '012345678', 'alina@email.com', '2025-05-09', '18:30:00', 4, 'Confirmed', 20, 3);
 
 -- Inserimento ordini + prodotti ordinati + registratore di cassa
--- (Esempio automatizzato per 40 ordini e 2 item per ordine)
 -- NB: inserimento con ID da 1 a 40
 
 -- Ordini
 INSERT INTO OrderRestaurant (OrderID, TableID, EmployeeID, OrderTime, OrderAmount) VALUES
--- Generati a mano per brevità; puoi automatizzare con script se serve
 (1,1,3,'12:00:00', 20.00), (2,2,3,'12:30:00', 16.50), (3,3,4,'13:00:00', 21.00), (4,4,4,'13:30:00', 18.00),
 (5,5,3,'14:00:00', 19.50), (6,6,4,'14:30:00', 22.00), (7,7,3,'15:00:00', 17.00), (8,8,4,'15:30:00', 23.00),
 (9,9,3,'16:00:00', 20.50), (10,10,4,'16:30:00', 25.00),
