@@ -148,11 +148,15 @@ and **eliminate the `TotalAmount` attribute**, which will instead be calculated 
 - `delate_reservation`: Delete resrvation.
 - `edit_shift`: Modify or insert a Shift (for manager only).
 
+Note that the use of prepared statments compiled with python implies thanks to the functions `conn=get_connection()`, `conn.autcomit = False`, `conn.commit()` and `conn.rollback()`; to automatically use the transactions that guarantee `ACID propieties`.
+
 ### Views
 
 - **AvailableTables**: Provides real-time table availability.
 - **DailySales**: Summarizes daily revenue.
 - **EmployeeShift**: Provides employees assignments
+
+It is finally decided not to use views because of the unnecessary cost of updating them, caused by the continuous and possible updating of the tables to which they relate.
 
 ## Limitations
 
