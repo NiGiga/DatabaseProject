@@ -61,7 +61,9 @@ def add_reservation_gui():
             datetime.strptime(date_str, "%Y-%m-%d")
             datetime.strptime(time_str, "%H:%M")
 
+            # Connessione al database, inizio transizione
             conn = get_connection()
+            conn.autocommit = False  # Disattiva autocommit
             cursor = conn.cursor()
 
             check_query = """
@@ -215,7 +217,7 @@ def show_report_gui():
             messagebox.showerror("Errore", f"Errore durante la generazione del report: {e}")
         finally:
             cursor.close()
-            conn.close()
+            conn.close() # chiudo transizione e connessione
 
     tk.Button(window, text="Genera Report", command=generate).pack(pady=5)
 
