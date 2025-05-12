@@ -26,8 +26,9 @@ def add_order():
     table_id = input("🪑 Inserisci ID del tavolo: ").strip()
     employee_id = input("👤 Inserisci ID del cameriere: ").strip()
 
-    # Connessione al database
+    # Connessione al database, inizio transizione
     conn = get_connection()
+    conn.autocommit = False  # Disattiva autocommit
     cursor = conn.cursor()
 
     try:
@@ -83,19 +84,19 @@ def add_order():
         )
 
         # Salva tutte le modifiche nel database
-        conn.commit()
+        conn.commit() # se va tutto bene
         print(f"\n💰 Totale ordine aggiornato: €{total:.2f}")
         print("✅ Ordine completato con successo.")
 
     except Exception as e:
         # In caso di errore, annulla le modifiche e mostra il messaggio
         print("❌ Errore durante l'inserimento dell'ordine:", e)
-        conn.rollback()
+        conn.rollback() # se non va tutto bene
 
     finally:
         # Chiude cursor e connessione anche in caso di errore
         cursor.close()
-        conn.close()
+        conn.close() # chiudo transizione e connessione
 
 # --------------------------------------------------------
 # AVVIO DEL PROGRAMMA
