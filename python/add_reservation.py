@@ -21,7 +21,9 @@ def get_connection():
 # Mostra i tavoli disponibili per una data e un orario specifici
 # -------------------------------------------------------------------
 def print_available_tables(date_str, time_str):
+        # Connessione al database, inizio transizione
     conn = get_connection()
+    conn.autocommit = False  # Disattiva autocommit
     cursor = conn.cursor(dictionary=True)
 
     # Query SQL: seleziona tutti i tavoli disponibili che NON hanno prenotazioni confermate entro ±90 minuti
@@ -104,7 +106,7 @@ def add_reservation():
     finally:
         # Chiude connessione e cursore
         cursor.close()
-        conn.close()
+        conn.close() # chiudo transizione e connessione
 
 
 # -------------------------------
