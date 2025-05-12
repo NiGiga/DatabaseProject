@@ -15,7 +15,7 @@ def get_connection():
 def get_latest_date():
     """
     Recupera la data più recente in cui è stato registrato un pagamento
-    basandosi sull'associazione con OrderRestaurant (presuppone che la tabella Shift o Reservation contenga la data).
+    basandosi sull'associazione con OrderRestaurant.
     """
     conn = get_connection()
     cursor = conn.cursor()
