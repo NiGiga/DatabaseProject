@@ -145,6 +145,9 @@ permette di **gestire le transazioni** e garantire le **proprietà ACID**.
 
 Si è infine deciso di **non usare le viste**, a causa dei costi di aggiornamento dovuti alla continua variazione dei dati correlati.
 
+### UDF
+* **freq_preno**: Frequenza prenotazione cliente da numero di telefono.
+
 ## Limitazioni
 
 * Presuppone relazioni lineari (problemi di scalabilità).
