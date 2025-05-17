@@ -161,6 +161,9 @@ Note that the use of prepared statments compiled with python implies thanks to t
 
 It is finally decided not to use views because of the unnecessary cost of updating them, caused by the continuous and possible updating of the tables to which they relate.
 
+### UDF
+* **freq_preno**: Customer booking frequency from phone number.
+
 ## Limitations
 
 - Assumes linear relationships (scalability concerns for large datasets).
