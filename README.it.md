@@ -57,6 +57,7 @@ Il database supporta funzionalità fondamentali per gestire le operazioni di un 
 ## 🧹 Eliminazione delle Generalizzazioni
 
 Per l'entità **Employee**, si è deciso di unificare le entità figlie poiché i pattern di accesso per le relazioni legate ai turni non sono distinti.
+Si è deciso di rendere attributo il ruolo (**Role**) trammite il quale si deciderà la politica di accesso alle risorse; per esempio trammte autenticazione il manager potrà modificare i turni.
 
 ---
 
