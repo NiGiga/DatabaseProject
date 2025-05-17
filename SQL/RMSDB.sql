@@ -133,3 +133,13 @@ JOIN
     Employee E ON ES.EmployeeID = E.EmployeeID
 JOIN
     Shift S ON ES.ShiftID = S.ShiftID;
+
+
+-- UDF for coustomer freq.
+create function freq_preno(Phone VARCHAR(20))
+returns INT deterministic
+begin
+    declare freq INT(4);
+    select count(*) into freq from reservation where CustomerPhone=Phone;
+    return(freq);
+end;
