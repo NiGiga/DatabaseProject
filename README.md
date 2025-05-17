@@ -59,6 +59,7 @@ The database supports core functionalities to manage restaurant operations effic
 ## 🧹 Elimination of Generalizations
 
 Regarding the **Employee** entity, it was decided to merge the child entities since the access patterns for shift-related relationships are not distinct.  
+It was decided to make attribute the role (**Role**) through which the access policy to resources will be decided; for example, through authentication the manager will be able to change shifts.
 
 ---
 
