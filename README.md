@@ -178,5 +178,10 @@ It is finally decided not to use views because of the unnecessary cost of updati
 ### Printing recipt
 ![Main menu](images/print_recipt.png)
 
+---
+
+### Demo
+
+https://units-my.sharepoint.com/:v:/g/personal/s284716_ds_units_it/Ea9VKSxQg7ZGoSZXq4fjDXwBhaHSc2UCYSuMU7hxByeaTA
 
 **Author**: Nicola Gigante
